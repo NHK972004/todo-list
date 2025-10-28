@@ -1,0 +1,83 @@
+.todo_container {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.todo_new {
+    display: flex;
+    justify-content: center;
+    gap: 10px
+}
+
+.todo_new button {
+    background-color: cornflowerblue;
+    color: white;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 24px;
+    padding: 1px 20px;
+}
+
+.todo_new input {
+    background-color: gainsboro;
+    color: black;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 24px;
+}
+
+.todo_title {
+    font-size: 64px;
+    width: fit-content;
+    margin: 10px auto;
+    background: linear-gradient(to right, #e74c3c, #e67e22, #f1c40f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.todo_data {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.todo_img {
+    text-align: center;
+}
+
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+}
+
+.logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+}

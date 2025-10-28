@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import "./components/todo/todo.css"
+import TodoData from "./components/todo/TodoData.jsx";
+import TodoNew from "./components/todo/TodoNew.jsx";
+import ToDoImage from "./assets/react.svg"
+import { useState } from "react";
+
+const App = () => {
+
+  // useState hook
+  const [todoList, setTodoList] = useState([])
+
+  // Add new todo
+  const addNewTodo = (name) => {
+    const newTodo = {
+      id: randomIntFromInterval(1, 1000000),
+      name: name
+    }
+    setTodoList([...todoList, newTodo])
+  }
+
+  // Delete todo
+  const deleteTodo = (id) => {
+    const newTodo = todoList.filter(item => item.id != id)
+    setTodoList(newTodo)
+  }
+
+  // Random id
+  const randomIntFromInterval = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Hello World Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="todo_container">
+        <div className="todo_title">Todo List</div>
+
+        <TodoNew
+          addNewTodo={addNewTodo}
+
+        />
+
+        {todoList.length > 0 ?
+          <TodoData
+            todoList={todoList}
+            deleteTodo={deleteTodo}
+          />
+          :
+          <div className="todo_img">
+            <img src={ToDoImage} className="logo" />
+          </div>
+        }
+      </div >
     </>
   )
 }
 
-export default App
+export default App;
