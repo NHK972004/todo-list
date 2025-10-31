@@ -1,57 +1,19 @@
-
-import "./components/todo/todo.css"
-import TodoData from "./components/todo/TodoData.jsx";
-import TodoNew from "./components/todo/TodoNew.jsx";
-import ToDoImage from "./assets/react.svg"
-import { useState } from "react";
+import "./components/todo/todo.css";
+import "./styles/global.css";
+import Header from "./components/layout/header.jsx";
+import Footer from "./components/layout/footer.jsx";
+import "./components/layout/layout.css";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
-
-  // useState hook
-  const [todoList, setTodoList] = useState([])
-
-  // Add new todo
-  const addNewTodo = (name) => {
-    const newTodo = {
-      id: randomIntFromInterval(1, 1000000),
-      name: name
-    }
-    setTodoList([...todoList, newTodo])
-  }
-
-  // Delete todo
-  const deleteTodo = (id) => {
-    const newTodo = todoList.filter(item => item.id != id)
-    setTodoList(newTodo)
-  }
-
-  // Random id
-  const randomIntFromInterval = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
   return (
-    <>
-      <div className="todo_container">
-        <div className="todo_title">Todo List</div>
-
-        <TodoNew
-          addNewTodo={addNewTodo}
-
-        />
-
-        {todoList.length > 0 ?
-          <TodoData
-            todoList={todoList}
-            deleteTodo={deleteTodo}
-          />
-          :
-          <div className="todo_img">
-            <img src={ToDoImage} className="logo" />
-          </div>
-        }
-      </div >
-    </>
+    <div className="layout">
+      <Header />
+      <main className="layout__content">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
   )
 }
 
