@@ -12,4 +12,9 @@ const updateUserApi = () => {
 
 }
 
-export { createUserApi, updateUserApi };
+const fetchAllUserAPI = () => {
+    const URL_BackEnd = "/api/v1/user";
+    return axios.get(URL_BackEnd);
+}
+
+export { createUserApi, updateUserApi, fetchAllUserAPI };

@@ -14,7 +14,7 @@ const TodoNew = (props) => {
         addNewTodo(valueInput)
         setValueInput("")
     }
-    console.log(">>>check")
+
     return (
         <div className="todo_new">
             <input type="text"
