@@ -7,8 +7,6 @@ const UserPage = () => {
             <UserTable />
             <UserForm />
         </div>
-
-
     );
 }
 
