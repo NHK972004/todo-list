@@ -1,5 +1,6 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
+import axios from 'axios';
 import { useState } from 'react';
 
 const UserForm = () => {
@@ -8,7 +9,10 @@ const UserForm = () => {
     const [password, setPassword] = useState("")
     const [phone, setPhone] = useState("")
 
-    const handelOnClick = (event) => {
+    const handelOnClick = () => {
+        const URL_BACKEND = "http://localhost:8080/api/v1/user";
+        const data = { fullName, email, password, phone }
+        axios.post(URL_BACKEND, data)
         console.log(">>> check state ", { fullName, email, password, phone })
         setFullName("");
         setEmail("");
