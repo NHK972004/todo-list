@@ -3,6 +3,7 @@ import { Table, } from 'antd';
 import UpdateUserModal from './update.user.modal';
 import { useState } from 'react';
 import ViewUserDetail from './view.user.detail';
+import DeleteUser from './delete.user';
 
 const UserTable = (props) => {
     const { dataUsers, loadUser } = props;
@@ -40,7 +41,7 @@ const UserTable = (props) => {
             render: (_, record) => (
                 <div style={{ display: "flex", gap: "20px" }}>
                     <EditOutlined onClick={() => { console.log(record), setIsModalUpdateOpen(true), setDataUpdate(record); }} style={{ cursor: "pointer", color: "orange" }} />
-                    <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    <DeleteUser id={record._id} loadUser={loadUser} />
                 </div>
             ),
         },
