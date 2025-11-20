@@ -1,4 +1,3 @@
-import { UserOutlined } from '@ant-design/icons';
 import { Button, Input, notification, Modal } from 'antd';
 import { useState } from 'react';
 import { createUserApi, } from '../../services/api.service';
