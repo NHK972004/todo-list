@@ -3,7 +3,7 @@ import { deleteUserApi } from '../../services/api.service';
 import { DeleteOutlined } from '@ant-design/icons';
 
 const DeleteUser = (props) => {
-    const { id, loadUser } = props;
+    const { id, loadUser, dataUsers, current } = props;
     const confirm = async () => {
         const res = await deleteUserApi(id);
         if (res.data) {
@@ -11,7 +11,11 @@ const DeleteUser = (props) => {
                 message: "Delete user",
                 description: `Đã xóa user ${id}`
             })
-            await loadUser();
+            if (dataUsers.length === 1 && current > 1) {
+                await loadUser(current - 1);
+            } else {
+                await loadUser(current);
+            }
         } else {
             notification.error({
                 message: "Error delete user",
