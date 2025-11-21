@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 import { Table, } from 'antd';
 import UpdateUserModal from './update.user.modal';
 import { useState } from 'react';
