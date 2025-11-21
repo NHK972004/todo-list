@@ -1,7 +1,8 @@
-import { Drawer } from 'antd';
-import { useEffect, useState } from 'react';
+import { Button, Drawer, notification } from 'antd';
+import { useState } from 'react';
+import { handleUploadFile, updateUserAvatarApi } from '../../services/api.service';
 const ViewUserDetail = (props) => {
-    const { dataDetail, setDataDetail, isDetailOpen, setIsDetailOpen } = props;
+    const { dataDetail, setDataDetail, isDetailOpen, setIsDetailOpen, loadUser } = props;
 
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
@@ -13,17 +14,50 @@ const ViewUserDetail = (props) => {
             return
         }
         const file = event.target.files[0];
-        if (file.type.startsWith("image/")) {
+        if (file) {
             setSelectedFile(file);
             setPreview(URL.createObjectURL(file))
-            // console.log(file)
-
         }
     }
-    useEffect(() => {
-        console.log(selectedFile)
-        console.log(preview)
-    })
+
+    const handleUploadUserAvatar = async () => {
+        // step 1 : upload file
+        const resUpload = await handleUploadFile(selectedFile, "avatar")
+        if (resUpload.data) {
+            // success
+            const newAvatar = resUpload.data.fileUploaded;
+            // step 2: upload user
+            const resUpdateAvatar = await updateUserAvatarApi(
+                newAvatar, dataDetail._id, dataDetail.fullName, dataDetail.phone
+            );
+            if (resUpdateAvatar) {
+
+                setIsDetailOpen(false)
+                setSelectedFile(null)
+                setPreview(null)
+                await loadUser()
+
+                notification.success({
+                    message: "Update user avatar",
+                    description: "Cập nhật avatar thành công"
+                })
+            } else {
+                notification.error({
+                    message: "Error upload avatar",
+                    description: JSON.stringify(resUpdateAvatar.message)
+                })
+            }
+        } else {
+            // failed
+            notification.error({
+                message: "Error upload file",
+                description: JSON.stringify(resUpload.message)
+            })
+            setIsDetailOpen(false)
+            setSelectedFile(null)
+            setPreview(null)
+        }
+    }
 
     return (
         <Drawer
@@ -77,16 +111,22 @@ const ViewUserDetail = (props) => {
 
                             {/* preview image */}
                             {preview &&
-                                <div style={{
-                                    border: "1px solid black",
-                                    margin: "10px auto",
-                                    width: '50%',
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    boxSizing: "border-box"
-                                }}>
-                                    <img src={`${preview}`} alt="" style={{ objectFit: "contain", maxWidth: "100%", maxHeight: "100%" }} />
-                                </div>
+                                <>
+                                    <div style={{
+                                        border: "1px solid black",
+                                        margin: "10px auto",
+                                        width: '50%',
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        boxSizing: "border-box"
+                                    }}>
+                                        <img src={`${preview}`} alt="" style={{ objectFit: "contain", maxWidth: "100%", maxHeight: "100%" }} />
+                                    </div>
+                                    {/* SAVE button */}
+                                    <div style={{ display: "flex", justifyContent: "center", }}>
+                                        <Button type="primary" onClick={() => handleUploadUserAvatar()}>SAVE</Button>
+                                    </div>
+                                </>
                             }
                         </div>
                     </>
