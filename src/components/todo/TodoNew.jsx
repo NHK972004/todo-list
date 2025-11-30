@@ -18,20 +18,19 @@ const TodoNew = (props) => {
 
     return (
         <div className="todo_new">
-            <Row gutter={[8, 8]} align="middle">
-                <Col xs={24} sm={18}>
+            <Row gutter={[0, 8]} align="middle">
+                <Col xs={24} sm={18} style={{ display: "flex", justifyContent: "center" }}>
                     <Input
-                        size="large"
+                        size="middle"
                         placeholder="Enter your task"
                         value={valueInput}
                         onChange={(event) => handleOnChange(event.target.value)}
                     />
                 </Col>
-                <Col xs={24} sm={6}>
+                <Col xs={24} sm={6} style={{ display: "flex", justifyContent: "center" }}>
                     <Button
                         type="primary"
-                        size="large"
-                        block
+                        size="middle"
                         onClick={handleClick}
                     >
                         Add

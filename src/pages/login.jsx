@@ -2,16 +2,21 @@ import { ArrowRightOutlined, LockOutlined, UserOutlined } from "@ant-design/icon
 import { Button, Col, Divider, Form, Input, message, notification, Row } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUserApi } from "../services/api.service";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../components/context/auth.context";
 
 const LoginPage = () => {
     const [loading, setLoading] = useState(false)
+    const { setUser } = useContext(AuthContext);
     const navigate = useNavigate();
+
     const onFinish = async (values) => {
         setLoading(true);
         const res = await loginUserApi(values.email, values.password);
         if (res.data) {
             message.success("Đăng nhập thành công");
+            localStorage.setItem("access_token", res.data.access_token)
+            setUser(res.data.user)
             navigate("/");
         } else {
             notification.error({
@@ -51,18 +56,18 @@ const LoginPage = () => {
                         <Form.Item
                             label="Password"
                             name="password"
-                            rules={[
-                                { required: true, message: "Please input your password!" },
-                                {
-                                    min: 8,
-                                    message: "Password phải có ít nhất 8 ký tự",
-                                },
-                                {
-                                    pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
-                                    message:
-                                        "Password phải có chữ và số (các ký tự đặc biệt như @ $ ! % * # ? & là tùy chọn)",
-                                },
-                            ]}
+                        // rules={[
+                        //     { required: true, message: "Please input your password!" },
+                        //     {
+                        //         min: 8,
+                        //         message: "Password phải có ít nhất 8 ký tự",
+                        //     },
+                        //     {
+                        //         pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+                        //         message:
+                        //             "Password phải có chữ và số (các ký tự đặc biệt như @ $ ! % * # ? & là tùy chọn)",
+                        //     },
+                        // ]}
                         >
                             <Input.Password prefix={<LockOutlined />} />
                         </Form.Item>
