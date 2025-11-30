@@ -8,6 +8,7 @@ import { AuthContext } from "../components/context/auth.context";
 const LoginPage = () => {
     const [loading, setLoading] = useState(false)
     const { setUser } = useContext(AuthContext);
+    const [form] = Form.useForm();
     const navigate = useNavigate();
 
     const onFinish = async (values) => {
@@ -25,7 +26,6 @@ const LoginPage = () => {
             })
         }
         setLoading(false);
-        console.log(">>> check res login", res)
     }
     return (
         <Row style={{ justifyContent: "center", marginTop: "30px" }}>
@@ -42,6 +42,7 @@ const LoginPage = () => {
                     <Form
                         onFinish={onFinish}
                         layout="vertical"
+                        form={form}
                     >
                         <Form.Item
                             label="Email"
@@ -56,26 +57,27 @@ const LoginPage = () => {
                         <Form.Item
                             label="Password"
                             name="password"
-                        // rules={[
-                        //     { required: true, message: "Please input your password!" },
-                        //     {
-                        //         min: 8,
-                        //         message: "Password phải có ít nhất 8 ký tự",
-                        //     },
-                        //     {
-                        //         pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
-                        //         message:
-                        //             "Password phải có chữ và số (các ký tự đặc biệt như @ $ ! % * # ? & là tùy chọn)",
-                        //     },
-                        // ]}
+                            rules={[
+                                { required: true, message: "Please input your password!" },
+                                // {
+                                //     min: 8,
+                                //     message: "Password phải có ít nhất 8 ký tự",
+                                // },
+                                // {
+                                //     pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+                                //     message:
+                                //         "Password phải có chữ và số (các ký tự đặc biệt như @ $ ! % * # ? & là tùy chọn)",
+                                // },
+                            ]}
                         >
-                            <Input.Password prefix={<LockOutlined />} />
+                            <Input.Password prefix={<LockOutlined />} onKeyDown={(event) => {
+                                if (event.key === "Enter") form.submit()
+                            }} />
                         </Form.Item>
                         <Form.Item >
                             <div style={{ display: "flex", justifyContent: "space-between" }}>
                                 <Button type="primary"
-                                    // onClick={() => form.submit()},
-                                    htmlType="submit"
+                                    onClick={() => form.submit()}
                                     loading={loading}>
                                     Login
                                 </Button>

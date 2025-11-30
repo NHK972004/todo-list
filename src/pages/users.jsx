@@ -20,7 +20,6 @@ const UserPage = () => {
             setCurrent(res.data.meta.current)
             setPageSize(res.data.meta.pageSize)
             setTotal(res.data.meta.total)
-            console.log("CHECK", dataUsers)
         }
     }
 
