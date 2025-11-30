@@ -2,7 +2,7 @@ import { createContext, useState } from 'react';
 
 export const AuthContext = createContext({});
 
-export const AuthWapper = (props) => {
+export const AuthWrapper = (props) => {
     const [user, setUser] = useState({
         "email": "",
         "phone": "",
