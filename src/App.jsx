@@ -26,25 +26,25 @@ const App = () => {
 
   return (
     <Layout style={{ minHeight: "100dvh" }}>
-      {isAppLoading === true ?
+      {/* {isAppLoading === true ?
         <div style={{ position: "fixed", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}>
           <Spin tip="Loading..." size="large">
             {"Loading..."}
           </Spin>
         </div>
-        :
-        <>
-          <Header />
+        : */}
+      <>
+        <Header />
 
-          <Content style={{ padding: "16px" }}>
-            <div className="layout__content-inner">
-              <Outlet />
-            </div>
-          </Content>
+        <Content style={{ padding: "16px" }}>
+          <div className="layout__content-inner">
+            <Outlet />
+          </div>
+        </Content>
 
-          <Footer />
-        </>
-      }
+        <Footer />
+      </>
+      {/* } */}
     </Layout>
   )
 }

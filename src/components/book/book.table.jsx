@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { fetchAllBookApi } from "../../services/api.service";
 import BookForm from "./book.form";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import ViewBookDetail from "./view.book.detail";
 
 const BookTable = () => {
 
@@ -10,6 +11,9 @@ const BookTable = () => {
     const [current, setCurrent] = useState(1);
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
+
+    const [dataDetail, setDataDetail] = useState(null);
+    const [isDetailOpen, setIsDetailOpen] = useState(false)
 
     useEffect(() => {
         loadBook();
@@ -39,8 +43,8 @@ const BookTable = () => {
             dataIndex: '_id',
             render: (_, record) => (
                 <div>
-                    <a href="#" >{record._id}</a>
-                </div>
+                    <a href="#" onClick={() => { console.log(record), setIsDetailOpen(true), setDataDetail(record) }}>{record._id}</a>
+                </div >
             )
         },
         {
@@ -103,8 +107,13 @@ const BookTable = () => {
                         showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} of {total} users</div>) }
                     }}
                 onChange={onChange} />
+            <ViewBookDetail
+                isDetailOpen={isDetailOpen}
+                setIsDetailOpen={setIsDetailOpen}
+                dataDetail={dataDetail}
+                setDataDetail={setDataDetail}
+            />
         </>
-
     )
 }
 
