@@ -16,7 +16,7 @@ const UserTable = (props) => {
 
     const columns = [
         {
-            title: "Ordinal number",
+            title: "Ordinal Number",
             render: (_, record, index) => {
                 return (
                     <>
@@ -28,14 +28,11 @@ const UserTable = (props) => {
         {
             title: 'ID',
             dataIndex: '_id',
-            render: (_, record) => {
-                return (
-                    <div>
-                        <a href="#" onClick={() => { console.log(record), setIsDetailOpen(true), setDataDetail(record) }} >{record._id}</a>
-                    </div>
-
-                )
-            },
+            render: (_, record) => (
+                <div>
+                    <a href="#" onClick={() => { console.log(record), setIsDetailOpen(true), setDataDetail(record) }} >{record._id}</a>
+                </div>
+            )
         },
         {
             title: 'Full Name',
