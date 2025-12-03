@@ -91,7 +91,7 @@ const BookForm = (props) => {
                 <Button type="primary" onClick={() => setIsCreateOpen(true)}>Create Book</Button>
             </div>
             <Modal
-                title="Create User"
+                title="Create Book"
                 open={isCreateOpen}
                 onOk={handleSubmitButton}
                 onCancel={resetAndCloseModal}
@@ -123,8 +123,9 @@ const BookForm = (props) => {
                             onChange={(value) => setPrice(value)}
                             min={0}
                             step={1000}
-                            formatter={(value) => `${value}₫`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                            parser={(value) => value.replace(/₫\s?|(,)/g, "")}
+                            formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            parser={(value) => value.replace(/,/g, "")}
+                            addonAfter={"đ"}
                         />
                     </div>
                     <div>

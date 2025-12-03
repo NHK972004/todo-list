@@ -1,9 +1,11 @@
 import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { fetchAllBookApi } from "../../services/api.service";
-import BookForm from "./book.form";
+// import BookForm from "./book.form";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import ViewBookDetail from "./view.book.detail";
+import BookFormUncontrol from "./book.form.uncontrol";
+import UpdateBookUnControl from "./update.book.uncontrol";
 
 const BookTable = () => {
 
@@ -14,6 +16,9 @@ const BookTable = () => {
 
     const [dataDetail, setDataDetail] = useState(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false)
+
+    const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState(null)
 
     const [isCreateOpen, setIsCreateOpen] = useState(false)
 
@@ -73,9 +78,9 @@ const BookTable = () => {
         },
         {
             title: 'Action',
-            render: () => (
+            render: (_, record) => (
                 <div style={{ display: "flex", gap: "20px" }}>
-                    <EditOutlined style={{ cursor: "pointer", color: "orange" }} />
+                    <EditOutlined onClick={() => { console.log("table >>", record), setIsModalUpdateOpen(true), setDataUpdate(record); }} style={{ cursor: "pointer", color: "orange" }} />
                     <DeleteOutlined style={{ cursor: 'pointer', color: 'red', fontSize: '18px' }} />
                 </div>
             )
@@ -98,7 +103,8 @@ const BookTable = () => {
 
     return (
         <>
-            <BookForm loadBook={loadBook} isCreateOpen={isCreateOpen} setIsCreateOpen={setIsCreateOpen} />
+            {/* <BookForm loadBook={loadBook} isCreateOpen={isCreateOpen} setIsCreateOpen={setIsCreateOpen} /> */}
+            <BookFormUncontrol loadBook={loadBook} isCreateOpen={isCreateOpen} setIsCreateOpen={setIsCreateOpen} />
             <Table dataSource={dataBook} columns={columns} rowKey={"_id"}
                 pagination={
                     {
@@ -114,6 +120,13 @@ const BookTable = () => {
                 setIsDetailOpen={setIsDetailOpen}
                 dataDetail={dataDetail}
                 setDataDetail={setDataDetail}
+            />
+            <UpdateBookUnControl
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadBook={loadBook}
             />
         </>
     )
