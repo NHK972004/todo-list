@@ -9,7 +9,7 @@ const DeleteBook = (props) => {
         if (res.data) {
             notification.success({
                 message: "Delete Book",
-                description: `Đã xóa Book ${id}`
+                description: `Book deleted ${id}`
             })
             if (dataBook.length === 1 && current > 1) {
                 await loadBook(current - 1);
@@ -18,7 +18,7 @@ const DeleteBook = (props) => {
             }
         } else {
             notification.error({
-                message: "Error delete user",
+                message: "Error delete book",
                 description: JSON.stringify(res.message)
             })
         }
@@ -30,8 +30,8 @@ const DeleteBook = (props) => {
 
     return (
         <Popconfirm
-            title="Xác nhận xóa User?"
-            description="Bạn có chắc muốn xóa User này không?"
+            title="Confirm deletion of book?"
+            description="Are you sure you want to delete this book?"
             onConfirm={confirm}
             onCancel={cancel}
             okText="Yes"

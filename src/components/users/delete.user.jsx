@@ -9,7 +9,7 @@ const DeleteUser = (props) => {
         if (res.data) {
             notification.success({
                 message: "Delete user",
-                description: `Đã xóa user ${id}`
+                description: `User deleted ${id}`
             })
             if (dataUsers.length === 1 && current > 1) {
                 await loadUser(current - 1);
@@ -30,8 +30,8 @@ const DeleteUser = (props) => {
 
     return (
         <Popconfirm
-            title="Xác nhận xóa User?"
-            description="Bạn có chắc muốn xóa User này không?"
+            title="Confirm deletion of user?"
+            description="Are you sure you want to delete this user?"
             onConfirm={confirm}
             onCancel={cancel}
             okText="Yes"
