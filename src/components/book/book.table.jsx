@@ -22,12 +22,14 @@ const BookTable = () => {
     const [dataUpdate, setDataUpdate] = useState(null)
 
     const [isCreateOpen, setIsCreateOpen] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         loadBook();
     }, [current, pageSize])
 
     const loadBook = async (page = current, size = pageSize) => {
+        setLoading(true)
         const res = await fetchAllBookApi(page, size);
         if (res.data) {
             setDataBook(res.data.result)
@@ -35,6 +37,7 @@ const BookTable = () => {
             setPageSize(res.data.meta.pageSize)
             setTotal(res.data.meta.total)
         }
+        setLoading(false)
     }
 
     const columns = [
@@ -115,7 +118,8 @@ const BookTable = () => {
                         total: total,
                         showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} of {total} users</div>) }
                     }}
-                onChange={onChange} />
+                onChange={onChange}
+                loading={loading} />
             <ViewBookDetail
                 isDetailOpen={isDetailOpen}
                 setIsDetailOpen={setIsDetailOpen}

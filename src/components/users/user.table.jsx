@@ -6,7 +6,7 @@ import ViewUserDetail from './view.user.detail';
 import DeleteUser from './delete.user';
 
 const UserTable = (props) => {
-    const { dataUsers, loadUser, current, pageSize, total, setCurrent, setPageSize } = props
+    const { dataUsers, loadUser, current, pageSize, total, setCurrent, setPageSize, loading } = props
 
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [dataUpdate, setDataUpdate] = useState(null)
@@ -79,7 +79,7 @@ const UserTable = (props) => {
                         showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} of {total} users</div>) }
                     }}
                 onChange={onChange}
-
+                loading={loading}
             />
             <UpdateUserModal
                 isModalUpdateOpen={isModalUpdateOpen}
