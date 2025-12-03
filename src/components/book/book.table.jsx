@@ -15,6 +15,8 @@ const BookTable = () => {
     const [dataDetail, setDataDetail] = useState(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false)
 
+    const [isCreateOpen, setIsCreateOpen] = useState(false)
+
     useEffect(() => {
         loadBook();
     }, [current, pageSize])
@@ -48,7 +50,7 @@ const BookTable = () => {
             )
         },
         {
-            title: 'Tittle',
+            title: 'Title',
             dataIndex: 'mainText',
         },
         {
@@ -96,7 +98,7 @@ const BookTable = () => {
 
     return (
         <>
-            <BookForm />
+            <BookForm loadBook={loadBook} isCreateOpen={isCreateOpen} setIsCreateOpen={setIsCreateOpen} />
             <Table dataSource={dataBook} columns={columns} rowKey={"_id"}
                 pagination={
                     {

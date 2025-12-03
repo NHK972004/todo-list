@@ -9,10 +9,19 @@ const UserForm = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleSubmitButton = async () => {
+        if (!fullName || !email || !password) {
+            notification.error({
+                message: "Validation Error",
+                description: "Full name, Email, and Password are required"
+            });
+            return;
+        }
+        setLoading(true);
         const res = await createUserApi(fullName, email, password, phone);
         if (res.data) {
             notification.success({
@@ -36,6 +45,7 @@ const UserForm = (props) => {
         setPassword("");
         setPhone("");
         setIsModalOpen(false);
+        setLoading(false);
     }
 
     return (
@@ -54,6 +64,7 @@ const UserForm = (props) => {
                 maskClosable={false}
                 okText="CREATE"
                 cancelText="CANCEL"
+                confirmLoading={loading}
             >
                 <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
                     <div>

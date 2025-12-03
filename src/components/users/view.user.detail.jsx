@@ -30,7 +30,7 @@ const ViewUserDetail = (props) => {
             const resUpdateAvatar = await updateUserAvatarApi(
                 newAvatar, dataDetail._id, dataDetail.fullName, dataDetail.phone
             );
-            if (resUpdateAvatar) {
+            if (resUpdateAvatar.data) {
 
                 setIsDetailOpen(false)
                 setSelectedFile(null)
@@ -107,7 +107,10 @@ const ViewUserDetail = (props) => {
                                 borderRadius: "5px",
                                 cursor: "pointer"
                             }}>Upload Avatar</label>
-                            <input type="file" hidden id='btnUpLoad' onChange={(event) => handleOnChangeFile(event)} />
+                            <input type="file" hidden id='btnUpLoad'
+                                onChange={(event) => handleOnChangeFile(event)}
+                                onClick={(event) => event.target.value = null}
+                            />
 
                             {/* preview image */}
                             {preview &&

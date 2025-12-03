@@ -20,7 +20,7 @@ const ViewBookDetail = (props) => {
                     <>
                         < p > <span>Id: </span>{dataDetail._id}</p >
                         <br />
-                        <p><span>Tittle: </span>{dataDetail.mainText}</p>
+                        <p><span>Title: </span>{dataDetail.mainText}</p>
                         <br />
                         <p><span>Author: </span>{dataDetail.author}</p>
                         <br />
