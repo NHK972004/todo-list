@@ -2,10 +2,11 @@ import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { fetchAllBookApi } from "../../services/api.service";
 // import BookForm from "./book.form";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import ViewBookDetail from "./view.book.detail";
 import BookFormUncontrol from "./book.form.uncontrol";
 import UpdateBookUnControl from "./update.book.uncontrol";
+import DeleteBook from "./delete.book";
 
 const BookTable = () => {
 
@@ -81,7 +82,7 @@ const BookTable = () => {
             render: (_, record) => (
                 <div style={{ display: "flex", gap: "20px" }}>
                     <EditOutlined onClick={() => { console.log("table >>", record), setIsModalUpdateOpen(true), setDataUpdate(record); }} style={{ cursor: "pointer", color: "orange" }} />
-                    <DeleteOutlined style={{ cursor: 'pointer', color: 'red', fontSize: '18px' }} />
+                    <DeleteBook id={record._id} loadBook={loadBook} dataBook={dataBook} current={current} />
                 </div>
             )
         },
