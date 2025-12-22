@@ -14,7 +14,7 @@ The app communicates with an **external REST API backend** (not part of this rep
 - **Frontend (Vercel)**: https://todo-list-frontend-beryl-ten.vercel.app/
 
 ### Demo Account
-- Email: demo@gmail.com
+- Email: admin@gmail.com
 - Password: 123456
 ---
 
